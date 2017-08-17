@@ -1,0 +1,67 @@
+; File:			ex1_10.scm
+; Created on:	2017-08-12
+; Ref: 			https://mitpress.mit.edu/sicp/full-text/book/book-Z-H-11.html
+; Description:	The following procedure computes a mathematical function called Ackermann's function.
+
+;				(define (A x y)
+;  					(cond ((= y 0) 0)
+;       				((= x 0) (* 2 y))
+;        				((= y 1) 2)
+;        				(else (A (- x 1)
+;                 			(A x (- y 1))))))
+
+;				What are the values of the following expressions?
+
+; (A 1 10) = 1024
+
+	; (A (- 1 1) (A 1 (- 10 1)))
+	; (A (- 1 1) (A (- 1 1) (A 1 (- 9 1))))
+	; (A (- 1 1) (A (- 1 1) (A (- 1 1) (A 1 (- 8 1)))))
+	; (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A 1 (- 7 1))))))
+	; (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A 1 (- 6 1)))))))
+	; (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A 1 (- 5 1))))))))
+	; (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A 1 (- 4 1)))))))))
+	; (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A 1 (- 3 1))))))))))
+	; (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A 1 (- 2 1)))))))))))
+	; (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A 1 1))))))))))
+	; (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) 2)))))))))
+	; (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A 0 2)))))))))
+	; (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) 4))))))))
+	; (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A 0 4))))))))
+	; (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) 8)))))))
+	; (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A 0 8)))))))
+	; (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) 16))))))
+	; (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A 0 16))))))
+	; (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) 32)))))
+	; (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) (A 0 32)))))
+	; (A (- 1 1) (A (- 1 1) (A (- 1 1) (A (- 1 1) 64))))
+	; (A (- 1 1) (A (- 1 1) (A (- 1 1) (A 0 64))))
+	; (A (- 1 1) (A (- 1 1) (A (- 1 1) 128)))
+	; (A (- 1 1) (A (- 1 1) (A 0 128)))
+	; (A (- 1 1) (A (- 1 1) 256))
+	; (A (- 1 1) (A 0 256))
+	; (A (- 1 1) 512)
+	; (A 0 512)
+	; 1024
+
+; (A 2 4) = 65536
+
+; (A 3 3) = 65536
+
+;Consider the following procedures, where A is the procedure defined above:
+; (define (f n) (A 0 n)) = 2n
+; (define (g n) (A 1 n)) = 2^n
+; (define (h n) (A 2 n)) = 2^(2^n)
+; (define (k n) (* 5 n n)) = 5n^2
+
+; Give concise mathematical definitions for the functions computed by the procedures f, g, and h for positive integer values of n. 
+; For example, (k n) computes 5n^2.
+
+
+
+(define (A x y)
+  (cond ((= y 0) 0)
+        ((= x 0) (* 2 y))
+        ((= y 1) 2)
+        (else (A (- x 1)
+                 (A x (- y 1))))))
